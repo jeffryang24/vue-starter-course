@@ -18,12 +18,23 @@
   </section>
 
   <!-- vue -->
-  <section class="section container">
+  <section id="app" class="section container">
+    <h1 class="title">{{ name }} says, {{ message }}</h1>
+    <label>Name</label>
+    <input type="text" class="input" v-model="name" />
+    <label>Message</label>
+    <input type="text" class="input" v-model="message" />
   </section>
 
   <!-- our javascript -->
   <script>
-    
+    const app = new Vue({
+      el: '#app',
+      data: {
+        name: 'Jeffry',
+        message: 'Hello World!',
+      },
+    });
   </script>
 </body>
 </html>
