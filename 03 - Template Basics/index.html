@@ -13,13 +13,25 @@
 <body>
   <!-- our template -->
   <section id="app" class="section container">
+    <img width="400" height="400" :src="imagePath" />
 
+    <div class="notification is-success" v-if="isSuccess">
+      Success
+    </div>
+
+    <div class="notification is-danger" v-else>
+      Failed
+    </div>
   </section>
 
   <!-- our javascript -->
   <script>
     const app = new Vue({
-      el: '#app'
+      el: '#app',
+      data: {
+        imagePath: 'https://media.giphy.com/media/xUPGcHXN6vOiJA77ck/giphy.gif',
+        isSuccess: false,
+      }
     });
   </script>
 </body>

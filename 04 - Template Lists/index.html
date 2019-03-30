@@ -13,7 +13,13 @@
 <body>
   <!-- our template -->
   <section id="app" class="section container">
-
+    <ul>
+      <li v-for="user in users">
+        <img :src="user.avatar" width="400" height="400" /><br />
+        <p>Name: {{ user.name }}</p>
+        <p>Username: {{ user.username }}</p>
+      </li>
+    </ul>
   </section>
 
   <!-- our javascript -->
@@ -40,7 +46,10 @@
 
     // vue =======================================================
     const app = new Vue({
-      el: '#app'
+      el: '#app',
+      data: {
+        users,
+      }
     });
   </script>
 </body>
