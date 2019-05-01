@@ -29,8 +29,32 @@
 </head>
 <body>
   <!-- our template -->
-  <section id="app" class="section container">    
+  <section id="app" class="section container">
+    <h2 class="title">Search</h2>
+    <input type="text" v-model="query" @keyup="searchGifs">
+    <div class="columns is-multiline" v-if="searchedGifs">
 
+        <div class="column is-one-quarter" v-for="gif in searchedGifs">
+  
+          <div class="gif-box">
+            <a :href="gif.url">
+              <img class="gif-image" :src="gif.images.original.url">
+            </a>
+            <a 
+              class="gif-user" 
+              v-if="gif.user" 
+              :href="gif.user.profile_url">
+                <img :src="gif.user.avatar_url" height="40" width="40">
+                {{ gif.user.display_name }}
+            </a>
+          </div>
+  
+  
+        </div>
+  
+      </div>
+
+    <h2 class="title">Trending</h2>
     <div class="columns is-multiline" v-if="gifs">
 
       <div class="column is-one-quarter" v-for="gif in gifs">
@@ -65,8 +89,10 @@
         // if the usage limit has been hit, visit https://developers.giphy.com to get a new one
         // 80bfcbf357864cd18518c324f47a7098
         apiUrl: 'http://api.giphy.com/v1/gifs',
-        apiKey: '80bfcbf357864cd18518c324f47a7098',
-        gifs: null
+        apiKey: '7J1ccxzi9P72Vl9E7MZx96dUhTWxBtc2',
+        gifs: null,
+        searchedGifs: null,
+        query: '',
       },
 
       methods: {
@@ -76,6 +102,14 @@
           fetch(url)
             .then(response => response.json())
             .then(data => this.gifs = data.data);
+        },
+
+        searchGifs: function() {
+          const url = `${this.apiUrl}/search?api_key=${this.apiKey}&q=${this.query}`;
+
+          fetch(url)
+            .then(response => response.json())
+            .then(data => this.searchedGifs = data.data);
         }
       },
 

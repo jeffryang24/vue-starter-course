@@ -14,7 +14,11 @@
 <body>
   <!-- our template -->
   <section id="app" class="section container">
-    
+    <div v-if="gifs.length > 0">
+      <div v-for="gif in gifs">
+        <img :src="gif.images.original.url" />
+      </div>
+    </div>
   </section>
 
   <!-- our javascript -->
@@ -25,11 +29,21 @@
         // test giphy api key
         // if the usage limit has been hit, visit https://developers.giphy.com to get a new one
         // 80bfcbf357864cd18518c324f47a7098
-        apiUrl: 'http://api.giphy.com/v1/gifs',
-        apiKey: '80bfcbf357864cd18518c324f47a7098'
+        apiUrl: 'https://api.giphy.com/v1/gifs',
+        apiKey: '7J1ccxzi9P72Vl9E7MZx96dUhTWxBtc2',
+        gifs: [],
       },
       methods: {
+        fetchGifs: function() {
+          const url = `${this.apiUrl}/trending?api_key=${this.apiKey}`;
 
+          fetch(url)
+            .then(resp => resp.json())
+            .then(data => this.gifs = data.data);
+        }
+      },
+      created: function() {
+        this.fetchGifs();
       }
     });
   </script>

@@ -42,18 +42,7 @@
 
     <div class="columns is-multiline" v-if="searchedGifs">
       <div class="column is-one-quarter" v-for="gif in searchedGifs">
-        <div class="gif-box">
-          <a :href="gif.url">
-            <img class="gif-image" :src="gif.images.original.url">
-          </a>
-          <a 
-            class="gif-user" 
-            v-if="gif.user" 
-            :href="gif.user.profile_url">
-              <img :src="gif.user.avatar_url" height="40" width="40">
-              {{ gif.user.display_name }}
-          </a>
-        </div>
+        <gift-box :gif="gif"></gift-box>
       </div>
     </div>
 
@@ -61,6 +50,17 @@
     <h2 class="title">Trending</h2>
     <div class="columns is-multiline" v-if="trendingGifs">
       <div class="column is-one-quarter" v-for="gif in trendingGifs">
+          <gift-box :gif="gif"></gift-box>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- our javascript -->
+  <script>
+    Vue.component('gift-box', {
+      props: ['gif'],
+      template: `
         <div class="gif-box">
           <a :href="gif.url">
             <img class="gif-image" :src="gif.images.original.url">
@@ -73,13 +73,8 @@
               {{ gif.user.display_name }}
           </a>
         </div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- our javascript -->
-  <script>
+      `,
+    });
     const app = new Vue({
       el: '#app',
 
